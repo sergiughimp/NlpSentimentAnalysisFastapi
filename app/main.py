@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.schemas import AnalyseRequest, AnalyseResponse, StatsResponse
 
 app = FastAPI(
     title="Sentiment Analysis API",
@@ -6,10 +7,10 @@ app = FastAPI(
     version="1.0.0",
 )
 
-@app.post("/analyse")
-def analyse():
-    return {"message": "stub"}
+@app.post("/analyse", response_model=AnalyseResponse)
+def analyse(request: AnalyseRequest):
+    return {"text": request.text, "label": "stub", "score": 0.0}
 
-@app.get("/stats")
+@app.get("/stats", response_model=StatsResponse)
 def stats():
-    return {"message": "stub"}
+    return {"total_requests": 0, "average_score": 0.0, "label_counts": {}}
