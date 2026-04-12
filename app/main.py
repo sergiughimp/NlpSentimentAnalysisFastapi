@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.schemas import AnalyseRequest, AnalyseResponse, StatsResponse
 from app.store import store
+from model.predict import predict
 
 app = FastAPI(
     title="Sentiment Analysis API",
@@ -10,7 +11,9 @@ app = FastAPI(
 
 @app.post("/analyse", response_model=AnalyseResponse)
 def analyse(request: AnalyseRequest):
-    return {"text": request.text, "label": "stub", "score": 0.0}
+    result = predict(request.text)
+    store.record(result["label"], result["score"])
+    return {"text": request.text, "label": result["label"], "score": result["score"]}
 
 @app.get("/stats", response_model=StatsResponse)
 def stats():
