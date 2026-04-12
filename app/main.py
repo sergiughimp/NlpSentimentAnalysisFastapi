@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.schemas import AnalyseRequest, AnalyseResponse, StatsResponse
+from app.store import store
 
 app = FastAPI(
     title="Sentiment Analysis API",
@@ -13,4 +14,8 @@ def analyse(request: AnalyseRequest):
 
 @app.get("/stats", response_model=StatsResponse)
 def stats():
-    return {"total_requests": 0, "average_score": 0.0, "label_counts": {}}
+    return {
+        "total_requests": store.total_requests,
+        "average_score": store.average_score(),
+        "label_counts": store.label_counts,
+    }
