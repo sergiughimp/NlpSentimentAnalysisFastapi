@@ -96,5 +96,6 @@ sentiment-analysis-api/
 │   ├── __init__.py
 │   └── test_api.py    # Integration and unit tests
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
