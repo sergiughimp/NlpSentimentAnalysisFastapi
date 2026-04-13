@@ -15,6 +15,12 @@ python -m nltk.downloader vader_lexicon
 uvicorn app.main:app --reload
 ```
 
+## Tests
+
+```bash
+pytest tests/ -v
+```
+
 ## Endpoints
 
 | Method | Path | Description |
