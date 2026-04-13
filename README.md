@@ -62,3 +62,32 @@ Returns in-memory aggregates from all requests made since the process started:
 ```
 
 The API does **not** persist requests; restarting the server resets all stats.
+
+## Example
+
+```bash
+curl -X POST http://127.0.0.1:8000/analyse \
+     -H "Content-Type: application/json" \
+     -d '{"text": "The staff were incredibly helpful and kind"}'
+
+curl http://127.0.0.1:8000/stats
+```
+
+## Project Structure
+
+```
+sentiment-analysis-api/
+├── app/
+│   ├── __init__.py
+│   ├── main.py        # FastAPI app and routing
+│   ├── schemas.py     # Pydantic request/response models
+│   └── store.py       # In-memory aggregation store
+├── model/
+│   ├── __init__.py
+│   └── predict.py     # VADER sentiment model
+├── tests/
+│   ├── __init__.py
+│   └── test_api.py    # Integration and unit tests
+├── requirements.txt
+└── README.md
+```
