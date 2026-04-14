@@ -13,6 +13,10 @@ app = FastAPI(
     version="1.0.0",
 )
 
+@app.get("/")
+def root():
+    return {"message": "Sentiment Analysis API is running. Visit /docs for the interactive API documentation."}
+
 @app.post(
     "/analyse",
     response_model=AnalyseResponse,

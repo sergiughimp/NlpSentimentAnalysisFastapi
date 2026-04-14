@@ -4,32 +4,41 @@ A REST API that classifies the emotional tone of input text using VADER sentimen
 
 ## Setup
 
+Create and activate a virtual environment before installing dependencies:
+
 ```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
-python -m nltk.downloader wordnet vader_lexicon
+python -m nltk.downloader vader_lexicon
 python -m pytest tests/ -v
 ```
 
 ## Run
 
 ```bash
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
-Then, to run the application logic: http://127.0.0.1:8000/docs
+> **Note:** Use `python -m uvicorn` rather than `uvicorn` directly to ensure the server and its reload subprocess both use the virtual environment's Python interpreter.
 
-## Tests
-
-```bash
-pytest tests/ -v
-```
+Then visit: http://127.0.0.1:8000/docs for the interactive API documentation.
 
 ## Endpoints
 
 | Method | Path | Description |
 |---|---|---|
+| GET | `/` | Health check — confirms the API is running |
 | POST | `/analyse` | Classify sentiment of submitted text |
-| GET | `/stats` | Return average sentiment scores across all requests |
+| GET | `/stats` | Return aggregate sentiment statistics across all requests |
+
+### `GET /`
+
+```json
+{
+  "message": "Sentiment Analysis API is running. Visit /docs for the interactive API documentation."
+}
+```
 
 ### `POST /analyse`
 
@@ -71,6 +80,12 @@ Returns in-memory aggregates from all requests made since the process started:
 ```
 
 The API does **not** persist requests; restarting the server resets all stats.
+
+## Tests
+
+```bash
+pytest tests/ -v
+```
 
 ## Example
 
