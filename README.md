@@ -6,8 +6,8 @@ A REST API that classifies the emotional tone of input text using VADER sentimen
 
 ```bash
 pip install -r requirements.txt
-/Applications/Python\ 3.12/Install\ Certificates.command
 python -m nltk.downloader wordnet vader_lexicon
+python -m pytest tests/ -v
 ```
 
 ## Run
