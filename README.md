@@ -16,6 +16,8 @@ python -m nltk.downloader wordnet vader_lexicon
 uvicorn app.main:app --reload
 ```
 
+Then, to run the application logic: http://127.0.0.1:8000/docs
+
 ## Tests
 
 ```bash
